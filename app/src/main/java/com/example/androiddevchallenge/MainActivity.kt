@@ -18,19 +18,50 @@ package com.example.androiddevchallenge
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigate
+import androidx.navigation.compose.rememberNavController
+import com.example.androiddevchallenge.data.puppies
+import com.example.androiddevchallenge.model.Puppy
+import com.example.androiddevchallenge.ui.detail.PuppyDetailContent
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContent {
             MyTheme {
-                MyApp()
+                val navController = rememberNavController()
+                NavHost(navController = navController, startDestination = "puppiesList") {
+                    composable("puppiesList") {
+                        Home(puppies, navController)
+                    }
+                    composable("puppyDetails/{puppyId}") {
+                        PuppyDetailContent(navController, it.arguments?.getString("puppyId"))
+                    }
+                }
             }
         }
     }
@@ -38,24 +69,63 @@ class MainActivity : AppCompatActivity() {
 
 // Start building your app here!
 @Composable
-fun MyApp() {
+fun Home(puppies: List<Puppy>, navController: NavHostController) {
     Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
+        Scaffold(
+            topBar = {
+                val title = stringResource(id = R.string.app_name)
+                TopAppBar(
+                    title = { Text(text = title) }
+                )
+            },
+            content = {
+                PuppyList(puppies, navController)
+            }
+        )
+    }
+}
+
+@Composable
+fun PuppyItem(puppy: Puppy, index: Int, navController: NavHostController) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .height(56.dp)
+            .clickable { navController.navigate("puppyDetails/$index") }
+            .padding(16.dp)
+            .fillMaxWidth()
+    ) {
+        Text(text = puppy.name)
+    }
+}
+
+@Composable
+fun PuppyList(puppies: List<Puppy>, navController: NavHostController) {
+    Surface(color = MaterialTheme.colors.background) {
+        LazyColumn() {
+            itemsIndexed(items = puppies) { index, puppy ->
+                PuppyItem(puppy = puppy, index, navController)
+            }
+        }
     }
 }
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun LightPreview() {
+    val navController = rememberNavController()
+    val puppies = puppies
     MyTheme {
-        MyApp()
+        Home(puppies, navController)
     }
 }
 
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun DarkPreview() {
+    val navController = rememberNavController()
+    val puppies = puppies
     MyTheme(darkTheme = true) {
-        MyApp()
+        Home(puppies, navController)
     }
 }
