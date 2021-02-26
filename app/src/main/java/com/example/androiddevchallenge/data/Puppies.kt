@@ -36,5 +36,23 @@ val puppies = listOf(
         race = "Appenzeller",
         description = "The Appenzeller Sennenhund is a medium-size breed of dog, one of the four regional breeds of Sennenhund-type dogs from the Swiss Alps. The name Sennenhund refers to people called Senn, herders in the Appenzell region of Switzerland.",
         imgSrc = R.drawable.appenzeller
+    ),
+    Puppy(
+        name = "Andy",
+        race = "Beagle",
+        description = "The beagle is a breed of small hound that is similar in appearance to the much larger foxhound. The beagle is a scent hound, developed primarily for hunting hare (beagling). Possessing a great sense of smell and superior tracking instincts, the beagle is the primary breed used as detection dogs for prohibited agricultural imports and foodstuffs in quarantine around the world. The beagle is intelligent. It is a popular pet due to its size, good temper, and a lack of inherited health problems.",
+        imgSrc = R.drawable.beagle
+    ),
+    Puppy(
+        name = "Blackie",
+        race = "Groenendael",
+        description = "The Belgian Shepherd (also known as the Belgian Sheepdog or the Chien de Berger Belge) is a breed of medium-sized herding dog from Belgium. While predominantly considered a single breed, it is bred in four distinct varieties based on coat type and colour; the long-haired black Groenendael, the rough-haired fawn Laekenois, the short-haired fawn Malinois, and the long-haired fawn Tervuren; in the United States the American Kennel Club considers the four varieties to be separate breeds.",
+        imgSrc = R.drawable.groenendael
+    ),
+    Puppy(
+        name = "Casper",
+        race = "Husky",
+        description = "A husky is a sled dog used in the polar regions. One can differentiate huskies from other dog types by their fast pulling-style. They represent an ever-changing crossbreed of the fastest dogs (the Alaskan Malamute, by contrast, pulled heavier loads at a slower speed). Humans use huskies in sled-dog racing. Various companies have marketed tourist treks with dog sledges for adventure travelers in snow regions. Huskies are also kept as pets, and groups work to find new pet homes for retired racing and adventure-trekking dogs.",
+        imgSrc = R.drawable.husky
     )
 )
