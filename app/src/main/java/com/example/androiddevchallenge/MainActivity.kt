@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-// Start building your app here!
 @Composable
 fun Home(puppies: List<Puppy>, navController: NavHostController) {
     Surface(color = MaterialTheme.colors.background) {
